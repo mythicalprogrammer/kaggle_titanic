@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\"\nData Dictionary\nVariable\tDefinition\tKey\nsurvival \tSurvival \t0 = No, 1 = Yes\npclass \tTicket class \t1 = 1st, 2 = 2nd, 3 = 3rd\nsex \tSex\nAge \tAge in years\nsibsp \t# of siblings / spouses aboard the Titanic\nparch \t# of parents / children aboard the Titanic\nticket \tTicket number\nfare \tPassenger fare\ncabin \tCabin number\nembarked \tPort of Embarkation \tC = Cherbourg, Q = Queenstown, S = Southampton\nVariable Notes\n\npclass: A proxy for socio-economic status (SES)\n1st = Upper\n2nd = Middle\n3rd = Lower\n\nage: Age is fractional if less than 1. If the age is estimated, is it in the form of xx.5\n\nsibsp: The dataset defines family relations in this way...\nSibling = brother, sister, stepbrother, stepsister\nSpouse = husband, wife (mistresses and fiancés were ignored)\n\nparch: The dataset defines family relations in this way...\nParent = mother, father\nChild = daughter, son, stepdaughter, stepson\nSome children travelled only with a nanny, therefore parch=0 for them.\n\"\n\ntrain_data <- read.csv(\"./data/train.csv\", stringsAsFactors = FALSE)\n\ntrain_data$Survived <- as.factor(train_data$Survived)\ntrain_data$Pclass <- as.factor(train_data$Pclass)\ntrain_data$Sex <- as.factor(train_data$Sex)\ntrain_data$Embarked <- as.factor(train_data$Embarked)\n\n\n\n",
+    "created" : 1502150648867.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4114550213",
+    "id" : "374B9B3F",
+    "lastKnownWriteTime" : 1502153886,
+    "last_content_update" : 1502153886163,
+    "path" : "~/Documents/projects/kaggle/1_titanic/1_data_munging.R",
+    "project_path" : "1_data_munging.R",
+    "properties" : {
+        "marks" : "<:40,-1\n>:40,0"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

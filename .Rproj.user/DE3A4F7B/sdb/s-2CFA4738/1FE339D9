@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "# Preset everybody died\ntest_data$Survived <- 0\n# All women survived\ntest_data$Survived[test_data$Sex == 'female'] <- 1\n# All women in class 3 that pay more than 30 dollars died\n# Cuz you know iceberg probably hit that section or something I dunno\ntest_data$Survived[test_data$Sex == 'female' & test_data$Pclass == 3 &\n                     test_data$Fare >= 20] <- 0\n\n# create a submit dataframe consisting of the PassengerId and Survived columns\nsubmit <- data.frame(PassengerId = test_data$PassengerId,\n                     Survived = test_data$Survived)\n\nwrite.csv(submit, file = \"./submit/2_onlywomensurvived2.csv\", row.names = FALSE)\n",
+    "created" : 1502231734193.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1619142459",
+    "id" : "1FE339D9",
+    "lastKnownWriteTime" : 1502231889,
+    "last_content_update" : 1502231889389,
+    "path" : "~/Documents/projects/kaggle/1_titanic/6_third_submit.R",
+    "project_path" : "6_third_submit.R",
+    "properties" : {
+        "marks" : "<:0,0\n>:0,0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,14 +1,14 @@
 {
     "collab_server" : "",
-    "contents" : "# Read in the test dataset\ntest_data <- read.csv(\"./data/test.csv\", stringsAsFactors = FALSE)\n\n# create a column Survived and set to 0, by default we set everybody died\ntest_data$Survived <- 0\n\n# Base on our EDA, ~74% of women survived\n# So we get all the rows that are female and set the survived column to 1\n# we're going to assume all women survived in the test data set and all men\n# are dead. If I was boarding the titanic I would keep my hair long and pretend\n# to be a girl. Are you even reading this?\ntest_data$Survived[test_data$Sex == 'female'] <- 1\n\n# create a submit dataframe consisting of the PassengerId and Survived columns\nsubmit <- data.frame(PassengerId = test_data$PassengerId,\n                     Survived = test_data$Survived)\n\nwrite.csv(submit, file = \"./submit/2_onlywomensurvived.csv\", row.names = FALSE)\n\n\n",
+    "contents" : "# Read in the test dataset\ntest_data <- read.csv(\"./data/test.csv\", stringsAsFactors = FALSE)\n\n# create a column Survived and set to 0, by default we set everybody died\ntest_data$Survived <- 0\n\n# Base on our EDA, ~74% of women survived\n# So we get all the rows that are female and set the survived column to 1\n# we're going to assume all women survived in the test data set and all men\n# are dead. If I was boarding the titanic I would keep my hair long and pretend\n# to be a girl. Are you even reading this?\ntest_data$Survived[test_data$Sex == 'female'] <- 1\n\n# create a submit dataframe consisting of the PassengerId and Survived columns\nsubmit <- data.frame(PassengerId = test_data$PassengerId,\n                     Survived = test_data$Survived)\n\nwrite.csv(submit, file = \"./submit/2_onlywomensurvived.csv\", row.names = FALSE)\n\n",
     "created" : 1502228428660.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "1581036846",
+    "hash" : "3978711124",
     "id" : "EF1BFFC1",
-    "lastKnownWriteTime" : 1502228816,
-    "last_content_update" : 1502228816391,
+    "lastKnownWriteTime" : 1502229315,
+    "last_content_update" : 1502229315997,
     "path" : "~/Documents/projects/kaggle/1_titanic/4_second_submit.R",
     "project_path" : "4_second_submit.R",
     "properties" : {

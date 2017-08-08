@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "# NA for age that's a lotta missing data (pina colada missing data hahaha)\nsummary(train_data$Age)\n\n# Since there isn't any column indicating if the row is children or not..\n# The turoial guy Trevor decided to do it. EDA for the win.\ntrain_data$Child <- 0 # Set every rows to adult\ntrain_data$Child[train_data$Age < 18] <- 1 # now filter out everybody under 18 and set as children\n\n\n# create a table with both gender and age to see the survival proportions for different subsets\naggregate(\n  as.numeric(levels(Survived))[Survived] ~ Child + Sex,\n  data = train_data,\n  FUN = function(x) { sum(x)/length(x) })\n# aggregate function does not like Survived variable as factor....\n# welcome to the real world\n# we're using as.numeric(levels(factor))[factor] to convert back to actual value....\n\n# From the exploration, child or not it doesn't matter the result is the same\n# Being child doesn't give you special treatment, you need to be a girl\n# So child is a noninformative variable\n\n\n# NEXT EDA the tutorial bin the fare to see if people paying higher fare\n# have special treatment in getting on the life boats. I'm on a boat!\n\ntrain_data$Fare2 <- '30+'\ntrain_data$Fare2[train_data$Fare < 30 & train_data$Fare >= 20] <- '20-30'\ntrain_data$Fare2[train_data$Fare < 20 & train_data$Fare >= 10] <- '10-20'\ntrain_data$Fare2[train_data$Fare < 10] <- '<10'\n\naggregate(as.numeric(levels(Survived))[Survived] ~ Fare2 + Pclass + Sex,\n          data = train_data, FUN = function(x) {sum(x)/length(x)})\n\n# We found out expensive ticket with class 3 female have horrible survive rating\n# Trevor speculate perhaps that's where they hit the iceburge\n\n\n\n\n",
+    "created" : 1502229318692.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "984768087",
+    "id" : "11A301D4",
+    "lastKnownWriteTime" : 1502231729,
+    "last_content_update" : 1502231729697,
+    "path" : "~/Documents/projects/kaggle/1_titanic/5_EDA.R",
+    "project_path" : "5_EDA.R",
+    "properties" : {
+        "marks" : "<:0,0\n>:0,0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

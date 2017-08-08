@@ -17,4 +17,3 @@ submit <- data.frame(PassengerId = test_data$PassengerId,
 
 write.csv(submit, file = "./submit/2_onlywomensurvived.csv", row.names = FALSE)
 
-

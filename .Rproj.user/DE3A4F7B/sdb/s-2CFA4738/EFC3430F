@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "test_data$Survived <- NA\ncombi <- rbind(train_data, test_data)\n\ncombi$Title <- sapply(combi$Name,\n                      FUN = function(x) {strsplit(x, split='[,.]')[[1]][2]})\ncombi$Title <- sub(' ', '', combi$Title)\n\ntable(combi$Title)\n\n# combine Mademoiselle and Madame into a single category\ncombi$Title[combi$Title %in% c('Mme', 'Mlle')] <- 'Mlle'\n\ncombi$Title[combi$Title %in% c('Capt', 'Don', 'Major', 'Sir')] <- 'Sir'\n\ncombi$Title[combi$Title %in% c('Dona', 'Lady', 'the Countess', 'Jonkheer')] <-\n  'Lady'\n\n\n# Make title a factor\ncombi$Title <- factor(combi$Title)\n\n\ncombi$FamilySize <- combi$SibSp + combi$Parch + 1\n\n\" Well we just thought about a large family having issues getting to lifeboats\ntogether, but maybe specific families had more trouble than others? We could\ntry to extract the Surname of the passengers and group them to find families,\nbut a common last name such as Johnson might have a few extra non-related\npeople aboard. In fact there are three Johnsons in a family with size 3,\nand another three probably unrelated Johnsons all travelling solo.\n\nCombining the Surname with the family size though should remedy this concern.\nNo two family-Johnson’s should have the same FamilySize variable on such a\nsmall ship.\"\n\ncombi$Surname <- sapply(combi$Name,\n                        FUN = function(x) {strsplit(x, split='[,.]')[[1]][1]})\ncombi$FamilyID <- paste(as.character(combi$FamilySize), combi$Surname, sep=\"\")\n\ncombi$FamilyID[combi$FamilySize <= 2] <- 'Small'\n\ntable(combi$FamilyID)\n\nfamIDs <- data.frame(table(combi$FamilyID))\nfamIDs <- famIDs[famIDs$Freq <= 2,]\n\ncombi$FamilyID[combi$FamilyID %in% famIDs$Var1] <- 'Small'\ncombi$FamilyID <- factor(combi$FamilyID)\n\ntrain <- combi[1:891,]\ntest <- combi[892:1309,]\nfit <- rpart(Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare +\n               Embarked + Title + FamilySize + FamilyID,\n             data = train,\n             method = \"class\")\nrpart.plot(fit)\n\nPrediction <- predict(fit, test, type = \"class\")\nsubmit <- data.frame(PassengerId = test$PassengerId, Survived = Prediction)\n\nwrite.csv(submit, file = \"./submit/5_feature_engineering.csv\", row.names = FALSE)\n\n\n\n",
+    "created" : 1502251999529.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2828570442",
+    "id" : "EFC3430F",
+    "lastKnownWriteTime" : 1502252700,
+    "last_content_update" : 1502252700348,
+    "path" : "~/Documents/projects/kaggle/1_titanic/8_feature_engineering.R",
+    "project_path" : "8_feature_engineering.R",
+    "properties" : {
+        "marks" : "<:0,0\n>:0,0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

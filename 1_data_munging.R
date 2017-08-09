@@ -37,5 +37,11 @@ train_data$Pclass <- as.factor(train_data$Pclass)
 train_data$Sex <- as.factor(train_data$Sex)
 train_data$Embarked <- as.factor(train_data$Embarked)
 
+test_data <- read.csv("./data/test.csv", stringsAsFactors = FALSE)
+
+test_data$Survived <- as.factor(test_data$Survived)
+test_data$Pclass <- as.factor(test_data$Pclass)
+test_data$Sex <- as.factor(test_data$Sex)
+test_data$Embarked <- as.factor(test_data$Embarked)
 
 

@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#####\n# Install require package and libraries\n#####\n\n# ipak function: install and load multiple R packages.\n# check to see if packages are installed. Install them if they are not, then load them into the R session.\n\nipak <- function(pkg){\n  new.pkg <- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n  if (length(new.pkg))\n    install.packages(new.pkg, dependencies = TRUE)\n  sapply(pkg, require, character.only = TRUE)\n}\n\n# usage\npackages <- c(\"rpart\", 'rpart.plot')\nipak(packages)\n\nfit <- rpart(Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare + Embarked,\n             data = train_data,\n             method = \"class\")\n\nrpart.plot(fit)\n\nPrediction <- predict(fit, test_data, type = \"class\")\nsubmit <- data.frame(PassengerId = test_data$PassengerId, Survived = Prediction)\n\nwrite.csv(submit, file = \"./submit/4_decisiontree.csv\", row.names = FALSE)\n\n",
+    "created" : 1502243780610.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2091471956",
+    "id" : "331D7A4F",
+    "lastKnownWriteTime" : 1502249524,
+    "last_content_update" : 1502249524607,
+    "path" : "~/Documents/projects/kaggle/1_titanic/7_decision_tree.R",
+    "project_path" : "7_decision_tree.R",
+    "properties" : {
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

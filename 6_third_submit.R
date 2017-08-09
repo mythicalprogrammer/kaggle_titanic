@@ -11,4 +11,4 @@ test_data$Survived[test_data$Sex == 'female' & test_data$Pclass == 3 &
 submit <- data.frame(PassengerId = test_data$PassengerId,
                      Survived = test_data$Survived)
 
-write.csv(submit, file = "./submit/2_onlywomensurvived2.csv", row.names = FALSE)
+write.csv(submit, file = "./submit/3_onlywomensurvived2.csv", row.names = FALSE)

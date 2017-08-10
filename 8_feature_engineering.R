@@ -20,6 +20,8 @@ combi$Title[combi$Title %in% c('Dona', 'Lady', 'the Countess', 'Jonkheer')] <-
 combi$Title <- factor(combi$Title)
 
 
+# if you went by yourself without your family it will be 0 + 0 + 1
+# therefore the family size is 1, just you
 combi$FamilySize <- combi$SibSp + combi$Parch + 1
 
 " Well we just thought about a large family having issues getting to lifeboats

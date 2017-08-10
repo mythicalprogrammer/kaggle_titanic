@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "#####\n# Install require package and libraries\n#####\n\n# ipak function: install and load multiple R packages.\n# check to see if packages are installed. Install them if they are not, then load them into the R session.\n\nipak <- function(pkg){\n  new.pkg <- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n  if (length(new.pkg))\n    install.packages(new.pkg, dependencies = TRUE)\n  sapply(pkg, require, character.only = TRUE)\n}\n\n# usage\npackages <- c(\"randomForest\")\nipak(packages)\n\n# Unlike decision Trees, Random Forest cannot handle missing data\n# we have to handle it\n\nsummary(combi$Age)\n# shows there is  263 NA's\n\n\"So let’s grow a tree on the subset of the data with the age values available,\nand then replace those that are missing\"\n\nAgefit <- rpart(Age ~ Pclass + Sex + SibSp + Parch + Fare + Embarked + Title +\n                  FamilySize,\n                data=combi[!is.na(combi$Age),],\n                method=\"anova\")\ncombi$Age[is.na(combi$Age)] <- predict(Agefit, combi[is.na(combi$Age),])\n\n# Make sure we really fill in the age\nsummary(combi$Age)\n\n# two NA (missing values) in embarked\nsummary(combi$Embarked)\n\n\"Because it’s so few observations and such a large majority boarded in\nSouthampton, let’s just replace those two with “S”.\"\n\nwhich(combi$Embarked == '')\ncombi$Embarked[c(62,830)] = \"S\"\n\n# make it a factor again, I know we already made Embarked a factor columns\n# but when we did that we have four levels (S, C, Q, and ''), the empty level\n# is the missing value. So we have to make it a factor again to do S,C,Q with 3\n# levels\ncombi$Embarked <- factor(combi$Embarked)\n\n# another column with NA (1 missing value)\nsummary(combi$Fare)\nwhich(is.na(combi$Fare))\n# we replace the NA with the median\n# median is often used for prices and salary because of skewness of\n# people in different classes (rich, poor, middle class, working class, etc...)\ncombi$Fare[1044] <- median(combi$Fare, na.rm=TRUE)\n\n# Random Forest can only handle up to 32 levels in a factor,\n# FamilyID have 61 levels\n\n# manually reduce the number of levels to keep it under the threshold\n\"To do this we’ll copy the FamilyID column to a new variable, FamilyID2, and\nthen convert it from a factor back into a character string with as.character().\nWe can then increase our cut-off to be a “Small” family from 2 to 3 people.\nThen we just convert it back to a factor and we’re done\"\n\ncombi$FamilyID2 <- combi$FamilyID\ncombi$FamilyID2 <- as.character(combi$FamilyID2)\ncombi$FamilyID2[combi$FamilySize <= 3] <- 'Small'\ncombi$FamilyID2 <- factor(combi$FamilyID2)\n\nlevels(combi$FamilyID2)\nlength((levels(combi$FamilyID2))) # 22 levels only sweeeeeet\n\ntrain <- combi[1:891,]\ntest <- combi[892:1309,]\n\n# my birthday, do yours don't steal my bday\nset.seed(1030) # scoooooorpio\n\n# Train a forest of 2000 trees!!! I'm the king of the bushes\nfit <- randomForest(as.factor(Survived) ~ Pclass + Sex + Age + SibSp + Parch +\n                      Fare + Embarked + Title + FamilySize + FamilyID2,\n                    data = train,\n                    importance = TRUE,\n                    ntree = 2000)\n\n# So let’s look at what variables were important\nvarImpPlot(fit)\n\nPrediction <- predict(fit, test)\nsubmit <- data.frame(PassengerId = test$PassengerId, Survived = Prediction)\nwrite.csv(submit, file = \"./submit/6_random_forest.csv\", row.names = FALSE)\n",
+    "created" : 1502326855430.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3382444535",
+    "id" : "20D00FC8",
+    "lastKnownWriteTime" : 1502328213,
+    "last_content_update" : 1502328213737,
+    "path" : "~/Documents/projects/kaggle/1_titanic/9_random_forest.R",
+    "project_path" : "9_random_forest.R",
+    "properties" : {
+        "marks" : "<:85,32\n>:85,32",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
